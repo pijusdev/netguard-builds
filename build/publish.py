@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""publish.py — po udanym buildzie aktualizuje site/data/builds.json i status.json.
+"""publish.py — po udanym buildzie aktualizuje docs/data/builds.json i status.json.
 Użycie: python3 publish.py <wersja>
 Czyta APK z build/out/, liczy size + sha256, aktualizuje metadane i status (state=idle).
 """
@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = os.path.join(ROOT, "site")
+SITE = os.path.join(ROOT, "docs")
 OUT = os.path.join(ROOT, "build", "out")
 BUILDS_JSON = os.path.join(SITE, "data", "builds.json")
 STATUS_JSON = os.path.join(SITE, "data", "status.json")
