@@ -1,0 +1,14 @@
+# SEKRETY — nigdy na GitHub
+.secrets.md
+*.secret
+.env
+
+# artefakty builda (lokalne)
+build/work/
+build/out/
+build/*.log
+build/clt.zip
+
+# system
+.DS_Store
+Thumbs.db

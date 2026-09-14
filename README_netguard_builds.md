@@ -1,5 +1,28 @@
 # netguard_builds
 
+## 0. CEL I STATUS
+
+**CEL:** Strona dostępna po linku (trudna do odnalezienia), **prywatna**, z buildami
+NetGuarda (bez Pro) + konfiguracjami urządzeń. Model: **prywatne repo GitHub + Cloudflare Pages**
+(zgodnie z rekomendacją Gemini + decyzją Usera 2026-09-14).
+
+| # | Zadanie | Status |
+|---|---------|--------|
+| 1 | Prywatne repo `pijusdev/netguard-builds` (buildy arm32/arm64, configs, site, CI) | ✅ |
+| 2 | Ciemna strona (builds + status kompilacji z ETA + configs) | ✅ zwalidowana lokalnie |
+| 3 | System konfiguracji: `apply_config.py` + 2 configi (prototyp) | ✅ |
+| 4 | Konto **Cloudflare dla agenta (pius)** — e-mail `pijusejajus@gmail.com` | ⬜ |
+| 5 | Podpięcie prywatnego repo pod **Cloudflare Pages** | ⬜ |
+| 6 | Trudny do odgadnięcia URL + `<meta name="robots" content="noindex,nofollow">` | ⬜ |
+| 7 | Plik akcji GitHub `build.yml` (token bez scope `workflow` → przez web UI) | ⬜ |
+| 8 | Test buildu przez akcję (workflow_dispatch) | ⬜ |
+| 9 | Finalny raport z linkiem do Usera | ⬜ |
+
+> Hasło do konta Cloudflare (agenta): w `C:/bun/pi-agent/workspace/netguard_builds/.secrets.md`
+> (plik z `.gitignore` — NIE trafia na GitHub).
+
+---
+
 Prywatne repo z **buildami NetGuarda skompilowanymi od źródła** — firewall dla Androida
 z **odblokowanymi funkcjami Pro**, bez roota, w wersjach 32-bit i 64-bit. Do tego:
 strona (GitHub Pages) do pobierania buildów + **system konfiguracji urządzeń** wypychany przez ADB.
