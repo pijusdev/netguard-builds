@@ -1,0 +1,31 @@
+{
+  "updated": "2026-09-14T20:00:00Z",
+  "configs": [
+    {
+      "name": "Blokada reklam i telemetrii (start)",
+      "device": "Uniwersalna — punkt startowy",
+      "desc": "Filtrowanie + logowanie, blokada typowych reklam/telemetrii. Rozszerz pod swoje urządzenie.",
+      "file": "dist/configs/block_ads.json",
+      "rules": {
+        "com.google.android.gms.ads": 0,
+        "com.ironsource.mobilize": 0,
+        "com.applovin.sdk": 0,
+        "com.unity3d.ads.android.plugin": 0,
+        "com.chartboost.sdk": 0,
+        "com.mopub.mobileads": 0
+      }
+    },
+    {
+      "name": "Towinger Q13W (projektor)",
+      "device": "Android 12 · 32-bit · bez roota",
+      "desc": "Blokada telemetrii vendorów projektora (huanglong / zvt), logowanie do analizy.",
+      "file": "dist/configs/towinger_q13w.json",
+      "rules": {
+        "com.huanglong.smarttv": 0,
+        "com.zvt.bsp": 0,
+        "com.zvt.update": 0,
+        "com.android.providers.tv": 1
+      }
+    }
+  ]
+}

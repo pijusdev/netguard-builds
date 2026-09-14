@@ -1,0 +1,12 @@
+{
+  "state": "idle",
+  "step": "Gotowe — brak aktywnego budowania",
+  "started": null,
+  "updated": "2026-08-29T17:24:00Z",
+  "lastBuild": {
+    "version": "2.337",
+    "durationSec": 1140,
+    "finished": "2026-08-29T17:24:00Z",
+    "result": "success"
+  }
+}

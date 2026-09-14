@@ -1,0 +1,20 @@
+{
+  "name": "Blokada reklam i telemetrii (start)",
+  "device": "Uniwersalna — punkt startowy do udoskonalenia",
+  "desc": "Włącza filtrowanie + logowanie i blokuje typowe pakiety reklam/telemetrii. Rozszerz listę reguł pod swoje urządzenie.",
+  "version": 1,
+  "settings": {
+    "filter": true,
+    "log": true,
+    "dns": false,
+    "auto_enable": true
+  },
+  "rules": {
+    "com.google.android.gms.ads": 0,
+    "com.ironsource.mobilize": 0,
+    "com.applovin.sdk": 0,
+    "com.unity3d.ads.android.plugin": 0,
+    "com.chartboost.sdk": 0,
+    "com.mopub.mobileads": 0
+  }
+}

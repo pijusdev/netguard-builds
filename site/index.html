@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetGuard · Buildy bez Pro</title>
+  <meta name="description" content="NetGuard skompilowany od źródła — firewall dla Androida z odblokowanymi funkcjami Pro. Bez roota, 32/64-bit." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <h1>NetGuard <span class="accent">· buildy bez Pro</span></h1>
+          <p class="tagline">Firewall Androida skompilowany od źródła — wszystkie funkcje Pro odblokowane, bez roota.</p>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill" data-state="idle">
+        <span class="dot"></span>
+        <span id="statusPillText">Gotowe</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Jak to działa -->
+    <section class="card how">
+      <button class="how-toggle" id="howToggle" aria-expanded="true">
+        <span class="how-title">Jak to działa?</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+      <div class="how-body" id="howBody">
+        <p>
+          <strong>NetGuard</strong> to open-source'owy firewall dla Androida (licencja GPLv3) — blokuje internet
+          dla wybranych aplikacji <em>bez roota</em>, przez lokalny tunel VPN.
+        </p>
+        <p>
+          Wersje z Play Store mają funkcje Pro za opłatą. Tu kompilujemy <strong>wersję debug od źródła</strong> —
+          a w kodzie NetGuarda jest wbudowany mechanizm: jeśli aplikacja jest debuggable,
+          funkcje Pro są traktowane jako zakupione. Dlatego ten build ma <strong>wszystko odblokowane</strong>,
+          bez żadnych modyfikacji kodu i bez kluczy.
+        </p>
+        <ul class="how-list">
+          <li>✅ Bez roota — działa na zwykłym Androidzie</li>
+          <li>✅ 32-bit i 64-bit — wybierz pod swój procesor</li>
+          <li>✅ Kompilacja od źródła — pełna kontrola, powtarzalna</li>
+          <li>✅ Konfiguracje urządzeń — wypychaj reguły na urządzenia przez ADB</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Status budowania -->
+    <section class="card" id="buildCard">
+      <div class="card-head">
+        <h2>Status kompilacji</h2>
+        <span class="muted" id="buildUpdated"></span>
+      </div>
+      <div class="build-status" id="buildStatus">
+        <div class="bs-line" id="bsLine">Sprawdzam status…</div>
+        <div class="progress" id="progress" hidden>
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="bs-meta" id="bsMeta"></div>
+      </div>
+    </section>
+
+    <!-- Do pobrania -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Do pobrania</h2>
+        <span class="muted" id="buildsUpdated"></span>
+      </div>
+      <div id="buildsList" class="builds-list">
+        <div class="empty">Ładowanie listy buildów…</div>
+      </div>
+      <p class="fineprint" id="buildsNote"></p>
+    </section>
+
+    <!-- Konfiguracje -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Konfiguracje urządzeń</h2>
+        <span class="muted">reguły + ustawienia, wypychane przez ADB</span>
+      </div>
+      <p class="lead">
+        Gotowe profile konfiguracji NetGuarda. Pobierz plik i wgraj na urządzenie skryptem
+        <code>apply_config.py</code> (wymaga ADB). Konfiguracje są rozwijane i udoskonalane —
+        pełny opis w sekcji <a href="#configs-help">jak wgrać</a>.
+      </p>
+      <div id="configsList" class="builds-list">
+        <div class="empty">Ładowanie konfiguracji…</div>
+      </div>
+      <div class="config-help" id="configs-help">
+        <h3>Jak wgrać konfigurację</h3>
+        <ol>
+          <li>Pobierz plik <code>.json</code> konfiguracji (powyżej).</li>
+          <li>Podłącz urządzenie z włączonym debugowaniem USB.</li>
+          <li>Uruchom: <code>python apply_config.py &lt;plik.json&gt;</code></li>
+          <li>Skrypt zatrzyma NetGuarda, wgra bazę reguł + ustawienia i go uruchomi.</li>
+        </ol>
+        <p class="muted">Wymaga builda debug (ten z tej strony) — tylko on pozwala na <code>run-as</code>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="wrap foot">
+    <p>
+      NetGuard © M66B · licencja <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a>.
+      Ten projekt to nieoficjalny build od źródła do użytku prywatnego.
+    </p>
+    <p class="muted">Nie udostępniaj tego linka publicznie — strona jest prywatna i dostępna tylko z linkiem.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

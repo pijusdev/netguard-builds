@@ -1,0 +1,19 @@
+{
+  "name": "Towinger Q13W (projektor)",
+  "device": "Towinger Q13W · Android 12 (API 31) · 32-bit · bez roota",
+  "desc": "Konfiguracja dla projektora Towinger Q13W. Blokuje telemetrię vendorów (huanglong / zvt), włącza logowanie do analizy ruchu.",
+  "version": 1,
+  "settings": {
+    "filter": true,
+    "log": true,
+    "pcap": false,
+    "auto_enable": true,
+    "watchdog": true
+  },
+  "rules": {
+    "com.huanglong.smarttv": 0,
+    "com.zvt.bsp": 0,
+    "com.zvt.update": 0,
+    "com.android.providers.tv": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "updated": "2026-08-29T17:24:00Z",
+  "source": {
+    "repo": "https://github.com/M66B/NetGuard",
+    "version": "2.337",
+    "license": "GPLv3"
+  },
+  "builds": [
+    {
+      "version": "2.337",
+      "abi": "arm64-v8a",
+      "label": "arm64 · 64-bit",
+      "file": "dist/NetGuard-v2.337-arm64.apk",
+      "size": 3542487,
+      "sha256": "be791efde2e0688d01a140d4345283cca1f4262b19e6bd7776d506e2c9769e81",
+      "date": "2026-08-29",
+      "minSdk": 23,
+      "proUnlocked": true,
+      "note": "Dla większości współczesnych urządzeń (2018+)."
+    },
+    {
+      "version": "2.337",
+      "abi": "armeabi-v7a",
+      "label": "arm32 · 32-bit",
+      "file": "dist/NetGuard-v2.337-arm32.apk",
+      "size": 3535540,
+      "sha256": "8d1a6c5f94faa4a568934470814f509648a40ac233c177a79e7fe5b31fe2fa16",
+      "date": "2026-08-29",
+      "minSdk": 23,
+      "proUnlocked": true,
+      "note": "Dla starszych / tanich urządzeń 32-bit (np. projektory)."
+    }
+  ]
+}
