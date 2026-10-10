@@ -1,0 +1,98 @@
+name: Build NetGuard
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Wersja NetGuarda do skompilowania (puste = z build/VERSION)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Setup Android SDK
+        run: |
+          export ANDROID_HOME="$HOME/android-sdk"
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          curl -fsSL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o clt.zip
+          unzip -q clt.zip -d "$ANDROID_HOME/cmdline-tools"
+          mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
+            "ndk;25.2.9519653" "cmake;3.22.1"
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+
+      - name: Wersja + start budowania
+        id: ver
+        run: |
+          V="$(cat build/VERSION)"
+          if [ -n "${{ github.event.inputs.version }}" ]; then V="${{ github.event.inputs.version }}"; fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "BUILD_START=$(date +%s)" >> "$GITHUB_ENV"
+          LAST=$(python3 -c "import json;print(json.dumps(json.load(open('docs/data/status.json')).get('lastBuild',{})))")
+          cat > docs/data/status.json <<EOF
+          {
+            "state": "building",
+            "step": "Kompiluję NetGuard v$V — buduję filtr native + APK",
+            "started": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "lastBuild": $LAST
+          }
+          EOF
+          git config user.name "pi-agent[bot]"
+          git config user.email "pi-agent[bot]@users.noreply.github.com"
+          git add docs/data/status.json
+          git commit -m "build: start v$V" || true
+          git push origin HEAD:main
+
+      - name: Build NetGuard
+        run: ./build/build.sh "${{ steps.ver.outputs.version }}"
+
+      - name: Publikuj APK + status
+        run: |
+          V="${{ steps.ver.outputs.version }}"
+          cp build/out/NetGuard-v${V}-arm32.apk docs/dist/ 2>/dev/null || true
+          cp build/out/NetGuard-v${V}-arm64.apk docs/dist/ 2>/dev/null || true
+          cp build/out/NetGuard-v${V}-universal.apk docs/dist/ 2>/dev/null || true
+          python3 build/publish.py "$V"
+          git config user.name "pi-agent[bot]"
+          git config user.email "pi-agent[bot]@users.noreply.github.com"
+          git add docs/
+          git commit -m "build: publish v$V" || true
+          git push origin HEAD:main
+
+      - name: Status — błąd
+        if: failure()
+        run: |
+          LAST=$(python3 -c "import json;print(json.dumps(json.load(open('docs/data/status.json')).get('lastBuild',{})))" 2>/dev/null || echo '{}')
+          cat > docs/data/status.json <<EOF
+          {
+            "state": "error",
+            "step": "Kompilacja zakończona błędem — sprawdź logi akcji GitHub.",
+            "started": null,
+            "updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "lastBuild": $LAST
+          }
+          EOF
+          git config user.name "pi-agent[bot]"
+          git config user.email "pi-agent[bot]@users.noreply.github.com"
+          git add docs/data/status.json
+          git commit -m "build: error" || true
+          git push origin HEAD:main || true
