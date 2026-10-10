@@ -1,7 +1,7 @@
 {
-  "state": "building",
-  "step": "Kompiluję SDMaidSE — klonuję i buduję",
-  "started": "2026-10-10T14:32:58Z",
-  "updated": "2026-10-10T14:32:58Z",
+  "state": "error",
+  "step": "Błąd kompilacji SDMaidSE — zobacz logi w Actions",
+  "started": null,
+  "updated": "2026-10-10T14:34:38Z",
   "lastBuild": {"version": "2.337", "durationSec": 1140, "finished": "2026-08-29T17:24:00Z", "result": "success"}
 }
